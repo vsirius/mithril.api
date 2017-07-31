@@ -15,6 +15,7 @@ defmodule Mithril.Authorization.App do
     |> validate_user_scope()
     |> update_or_create_app()
     |> create_token()
+    |> deactivate_old_tokens()
   end
   def grant(_) do
     message = "Request must include at least client_id, redirect_uri and scopes parameters."
@@ -103,4 +104,10 @@ defmodule Mithril.Authorization.App do
 
     Map.put(params, "token", token)
   end
+
+  defp deactivate_old_tokens(%{"token" => token} = params) do
+    Mithril.TokenAPI.deactivate_old_authorization_codes(token)
+    params
+  end
+  defp deactivate_old_tokens(params), do: params
 end

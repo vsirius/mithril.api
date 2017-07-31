@@ -68,6 +68,15 @@ defmodule Mithril.TokenAPI do
     Repo.delete(token)
   end
 
+  def deactivate_old_authorization_codes(%Token{id: id, user_id: user_id}) do
+    now = :os.system_time(:seconds)
+    Token
+    |> where([t], t.id != ^id)
+    |> where([t], t.name == "authorization_code" and t.user_id == ^user_id)
+    |> where([t], t.expires_at >= ^now)
+    |> Repo.update_all(set: [expires_at: now])
+  end
+
   def delete_tokens_by_params(params) do
     %TokenSearch{}
     |> token_changeset(params)
