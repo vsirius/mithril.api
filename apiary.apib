@@ -516,13 +516,12 @@ We expect Client to require additional scopes in User login after adding new Use
     + Attributes (`Response_OK`)
         + data (`User_Role_Response`)
 
-### Delete Role from User [DELETE /users/{user_id}/roles/{id}]
+### Delete Role from User [DELETE /users/roles/{id}]
 
 Also deletes all associated Approvals for each affected User, all Tokens for each Approval.
 
 + Parameters
     + id: `user_role-1380df72-275a-11e7-93ae-92361f002671` (string, required) - User Role ID.
-    + user_id: `user-1380df72-275a-11e7-93ae-92361f002671` (string, required) - User ID.
 
 + Request (application/json)
 
