@@ -71,7 +71,7 @@ defmodule Mithril.Web.UserRoleControllerTest do
   test "deletes chosen user_role", %{conn: conn} do
     create_attrs = user_role_attrs()
     {:ok, user_role} = UserRoleAPI.create_user_role(create_attrs)
-    conn = delete conn, user_role_path(conn, :delete, user_role.user_id, user_role.id)
+    conn = delete conn, user_role_path(conn, :delete, user_role.id)
     assert response(conn, 204)
     assert_error_sent 404, fn ->
       get conn, user_role_path(conn, :show, user_role.user_id, user_role.id)
@@ -92,6 +92,16 @@ defmodule Mithril.Web.UserRoleControllerTest do
 
     conn = get conn, user_role_path(conn, :index, %User{id: user.id})
     assert 1 == length(json_response(conn, 200)["data"])
+  end
+
+  test "delete user_role by role_id", %{user_id: user_id, conn: conn} do
+    user_role = fixture(:user_role, user_id)
+    conn = delete conn, "/admin/users/roles/#{user_role.id}"
+    assert response(conn, 204)
+
+    assert_raise Ecto.NoResultsError, fn ->
+      get conn, user_role_path(conn, :show, user_id, user_role.id)
+    end
   end
 
   test "deletes user_roles by user_id and client_id", %{user_id: user_id, conn: conn} do
