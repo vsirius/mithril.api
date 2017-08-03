@@ -41,6 +41,27 @@ defmodule Mithril.Web.UserRoleControllerTest do
     }
   end
 
+  test "create user_role twice with same user_id, client_id", %{user_id: user_id, conn: conn} do
+    create_attrs = user_role_attrs()
+    %{client_id: client_id, role_id: role_id, user_id: attr_user_id} = create_attrs
+    conn1 = post conn, user_role_path(conn, :create, %User{id: user_id}), user_role: create_attrs
+    assert %{
+      "id" => _,
+      "client_id" => ^client_id,
+      "role_id" => ^role_id,
+      "user_id" => ^attr_user_id,
+    } = json_response(conn1, 201)["data"]
+
+    conn2 = post conn, user_role_path(conn, :create, %User{id: user_id}), user_role: create_attrs
+    assert %{
+      "error" => %{
+        "invalid" => [
+          %{"rules" => [%{"description" => "has already been taken"}]}
+        ]
+      }
+    } = json_response(conn2, 422)
+  end
+
   test "does not create user_role and renders errors when data is invalid", %{user_id: user_id, conn: conn} do
     invalid_attrs = %{client_id: nil, role_id: nil}
     conn = post conn, user_role_path(conn, :create, %User{id: user_id}), user_role: invalid_attrs
