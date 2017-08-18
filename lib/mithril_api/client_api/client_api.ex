@@ -72,6 +72,13 @@ defmodule Mithril.ClientAPI do
     client_changeset(client, %{})
   end
 
+  def refresh_secret(%Client{} = client) do
+    client
+    |> change(%{secret: nil})
+    |> put_secret()
+    |> Repo.update
+  end
+
   defp client_changeset(%ClientSearch{} = client, attrs) do
     client
     |> cast(attrs, [:name, :user_id])
