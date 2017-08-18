@@ -119,8 +119,7 @@ defmodule Mithril.OAuth.TokenControllerTest do
     conn2 = post(conn, "/oauth/tokens", Poison.encode!(request_payload))
     assert json_response(conn2, 201)
 
-    {megasecs, secs, _} = :erlang.timestamp
-    now = String.to_integer("#{megasecs}#{secs}")
+    now = DateTime.to_unix(DateTime.utc_now)
     assert expires_at > now
 
     %{expires_at: expires_at} = Repo.get!(Token, token1_id)
