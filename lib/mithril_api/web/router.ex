@@ -39,6 +39,7 @@ defmodule Mithril.Web.Router do
 
     resources "/clients", ClientController, except: [:new, :edit] do
       get "/details", ClientController, :details, as: :details
+      patch "/refresh_secret", ClientController, :refresh_secret, as: :refresh_secret
     end
 
     resources "/tokens", TokenController, except: [:new, :edit] do
