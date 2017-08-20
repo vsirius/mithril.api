@@ -1,6 +1,6 @@
 #!/bin/bash
 export DB_HOST=postgresql
-cd /mithril.api/
+cd /work/
 mix local.rebar --force
 yes | mix deps.get 
 mix test --exclude pending --trace
