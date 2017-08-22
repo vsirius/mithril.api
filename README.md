@@ -12,7 +12,7 @@ Mithril is known for:
 2. Token verification service;
 3. Role management;
 4. Client management.
-
+ 
 Mithril consists of two main parts:
 
 - [REST API back-end](https://github.com/Nebo15/mithril.api),
