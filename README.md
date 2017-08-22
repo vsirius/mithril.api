@@ -11,7 +11,7 @@ Mithril is known for:
 1. Implementing OAuth2 flow (e.g. issuing or revoking tokens);
 2. Token verification service;
 3. Role management;
-4. Client management.
+4. Client management. 
  
 Mithril consists of two main parts:
 
