@@ -6,7 +6,7 @@ Mithril – authentication and role management service.
 
 > Mithril is a precious Silvery metal, very lightweight but capable of providing extreme strength in alloys.
 
-Mithril is known for:
+Mithril is known for: 
 
 1. Implementing OAuth2 flow (e.g. issuing or revoking tokens);
 2. Token verification service;
