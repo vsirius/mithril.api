@@ -10,7 +10,7 @@ git config --global user.email "travis@travis-ci.com";
 git config --global user.name "Travis-CI";
 git config --global push.default upstream;
 
-REPO_URL="https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git";
+REPO_URL="https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG";
 git remote add upstream $REPO_URL &> /dev/null
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
